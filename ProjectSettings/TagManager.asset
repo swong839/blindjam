@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - floor
+  - wall
+  - stairs
+  - item
+  - enemy
+  - mapGenerator
   layers:
   - Default
   - TransparentFX
@@ -40,4 +46,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Dungeon
+    uniqueID: 3708585733
+    locked: 0
+  - name: Items
+    uniqueID: 3448359921
+    locked: 0
+  - name: Enemies
+    uniqueID: 3701852757
+    locked: 0
+  - name: Player
+    uniqueID: 628297059
     locked: 0
