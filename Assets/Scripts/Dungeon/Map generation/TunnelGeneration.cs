@@ -16,12 +16,12 @@ public class TunnelGeneration : MonoBehaviour
 
     public void createHorizontalTunnel(Room rm1, Room rm2)
     {
+        tileWidth = gameObject.GetComponent<DungeonGeneration>().TileWidth;
         int leftRoom = rm1.RoomNum;
         int rightRoom = rm2.RoomNum;
         int leftSize = rm1.RoomSize;
         int rightSize = rm2.RoomSize;
 
-        Debug.Log(rm1.Doors.Values);
         Vector2 rm1EastDoor = rm1.Doors["east"].transform.position;
         Vector2 rm2WestDoor = rm2.Doors["west"].transform.position;
 
@@ -35,7 +35,7 @@ public class TunnelGeneration : MonoBehaviour
         lastPos = tunnel.transform.position;
 
         // Get number of extra pieces and instantiate them
-        int extraTiles = Random.Range(0, tunnelTiles - 2);
+        int extraTiles = Random.Range(1, tunnelTiles - 1);
         for (int i = 0; i < extraTiles; i++)
         {
             tunnel = Instantiate(tunnelGO);
@@ -56,7 +56,7 @@ public class TunnelGeneration : MonoBehaviour
             tunnel = Instantiate(tunnelGO);
             tunnel.transform.position = lastPos + new Vector2(0, modifier * tileWidth);
             lastPos = tunnel.transform.position;
-        } 
+        }
 
         // Set remaining tile pieces
         for (int i = 0; i < tunnelTiles - 1 - extraTiles; i++)
@@ -74,8 +74,7 @@ public class TunnelGeneration : MonoBehaviour
         int bottomRoom = rm2.RoomNum;
         int topSize = rm1.RoomSize;
         int bottomSize = rm2.RoomSize;
-
-        Debug.Log(rm1.Doors.Values);
+        
         Vector2 rm1SouthDoor = rm1.Doors["south"].transform.position;
         Vector2 rm2NorthDoor = rm2.Doors["north"].transform.position;
 
@@ -89,7 +88,7 @@ public class TunnelGeneration : MonoBehaviour
         lastPos = tunnel.transform.position;
 
         // Get number of extra pieces and instantiate them
-        int extraTiles = Random.Range(0, tunnelTiles - 2);
+        int extraTiles = Random.Range(1, tunnelTiles - 1);
         for (int i = 0; i < extraTiles; i++)
         {
             tunnel = Instantiate(tunnelGO);
@@ -104,8 +103,8 @@ public class TunnelGeneration : MonoBehaviour
             modifier = -1;
         }
 
-        int hortTunnelLength = (int)(Mathf.Abs(rm1SouthDoor.x - rm2NorthDoor.x) / tileWidth);
-        for (int i = 0; i < hortTunnelLength; i++)
+        int horiTunnelLength = (int)(Mathf.Abs(rm1SouthDoor.x - rm2NorthDoor.x) / tileWidth);
+        for (int i = 0; i < horiTunnelLength; i++)
         {
             tunnel = Instantiate(tunnelGO);
             tunnel.transform.position = lastPos + new Vector2(modifier * tileWidth, 0);
