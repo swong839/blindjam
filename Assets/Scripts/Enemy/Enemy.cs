@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Enemy
 {
     [SerializeField]
@@ -29,6 +31,20 @@ public class Enemy
         set { type = value; }
     }
 
+    [SerializeField]
+    private int roomNumber;
+    public int RoomNumber
+    {
+        get { return roomNumber; }
+        set { roomNumber = value; }
+    }
 
+    [SerializeField]
+    private int damage;
+    public int Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
 
 }

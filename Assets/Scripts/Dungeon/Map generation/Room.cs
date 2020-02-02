@@ -55,8 +55,8 @@ public class Room
     }
 
     [SerializeField]
-    private List<Enemy> enemies;
-    public List<Enemy> Enemies
+    private List<EnemyController> enemies = new List<EnemyController>();
+    public List<EnemyController> Enemies
     {
         get { return enemies; }
         set { enemies = value; }
@@ -71,7 +71,7 @@ public class Room
     }
 
     [SerializeField]
-    private List<Orb> orbs;
+    private List<Orb> orbs = new List<Orb>();
     public List<Orb> Orbs
     {
         get { return orbs; }

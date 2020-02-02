@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonGeneration : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class DungeonGeneration : MonoBehaviour
     private TunnelGeneration tg;
     [SerializeField]
     private List<Room> rooms = new List<Room>();
+    private List<GameObject> tunnels = new List<GameObject>();
     private List<GameObject> roomGO = new List<GameObject>();
     private int entrance;
     private int exit;
@@ -82,17 +84,14 @@ public class DungeonGeneration : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            resetRooms();
-        }
+
     }
 
     #endregion
 
     #region Room Generation
 
-    private void roomSetUp()
+    public void roomSetUp()
     {
         rg = GetComponent<RoomGeneration>();
         totalSize = UnityEngine.Random.Range(minNumRooms, maxNumRooms + 1);
@@ -100,7 +99,8 @@ public class DungeonGeneration : MonoBehaviour
 
         // Select a random room for entrance generation
         List<int> availableRooms = Enumerable.Range(0, totalNumRooms).ToList();
-        entrance = availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
+        //entrance = availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
+        entrance = 0;
 
         availableRooms.Remove(entrance);
         exit = availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
@@ -112,6 +112,7 @@ public class DungeonGeneration : MonoBehaviour
             room.RoomSize = UnityEngine.Random.Range(minRoomSize, maxRoomSize + 1);
             room.NumEnemies = UnityEngine.Random.Range(minEnemyNum, maxEnemyNum + 1);
             room.NumOrbs = UnityEngine.Random.Range(minOrbNum, maxOrbNum + 1);
+
             List<int> doorPos = new List<int>();
             for (int j = 0; j < 4; j++)
             {
@@ -148,14 +149,22 @@ public class DungeonGeneration : MonoBehaviour
         {
             if (rooms[i].Neighbors["east"] != null)
             {
-                tg.createHorizontalTunnel(rooms[i], rooms[i + 1]);
+                GameObject t = tg.createHorizontalTunnel(rooms[i], rooms[i + 1]);
+                tunnels.Add(t);
             }
 
             if (rooms[i].Neighbors["south"] != null)
             {
-                tg.createVerticalTunnel(rooms[i], rooms[i + totalSize]);
+                GameObject t = tg.createVerticalTunnel(rooms[i], rooms[i + totalSize]);
+                tunnels.Add(t);
             }
         }
+
+        //for (int i = 0; i < totalNumRooms; i++)
+        //{
+        //    rg.createEnemies(rooms[i], roomGO[i]);
+        //    rg.createItems(rooms[i], roomGO[i]);
+        //}
     }
 
 
@@ -179,19 +188,41 @@ public class DungeonGeneration : MonoBehaviour
 
     private void resetRooms()
     {
-        for (int i = 0; i < roomGO.Count; i++)
-        {
-            Destroy(roomGO[i]);
-        }
+        //for (int i = 0; i < roomGO.Count; i++)
+        //{
+        //    Destroy(roomGO[i]);
+        //}
 
-        roomGO.Clear();
-        rooms.Clear();
-        roomSetUp();
+
+        //roomGO.Clear();
+        //rooms.Clear();
+        //roomSetUp();
+
+        SceneManager.LoadScene("MapGeneration");
     }
 
     #endregion
 
     #region Tunnel Generation
 
+    #endregion
+
+    #region Reset Dungeon
+    public void resetLists()
+    {
+        rooms.Clear();
+        foreach(GameObject tunnel in tunnels)
+        {
+            Destroy(tunnel);
+        }
+
+        foreach(GameObject room in roomGO)
+        {
+            Destroy(room);
+        }
+
+        roomGO.Clear();
+        tunnels.Clear();
+    }
     #endregion
 }

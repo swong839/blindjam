@@ -73,6 +73,8 @@ public class RoomGeneration : MonoBehaviour
     private Vector2 exitPos;
     private Dictionary<int, string> directionIndex = new Dictionary<int, string>();
 
+    private MapManager mm;
+
     private enum typeList
     {
         ICE,
@@ -88,8 +90,10 @@ public class RoomGeneration : MonoBehaviour
         directionIndex.Add(3, "west");
 
         roomWidth = GameObject.FindGameObjectWithTag("mapGenerator").GetComponent<DungeonGeneration>().TileWidth;
+        mm = GameObject.FindGameObjectWithTag("gameManager").GetComponent<MapManager>();
     }
 
+    #region Room Generation Functions
     public GameObject createRoom(Room room, int dungeonSize, int roomNum)
     {
         roomNumber = roomNum;
@@ -113,10 +117,18 @@ public class RoomGeneration : MonoBehaviour
         createLastLayer(room, rm);
 
         // Place items
+        createItems(room, rm);
 
         // Place enemies
-        
+        if (!room.IsEntrance)
+        {
+            createEnemies(room, rm);
+        }
+
         // Place entrance (and entrance location)
+
+        mm.Rooms.Add(room);
+        mm.Enemies.Add(room.Enemies);
 
         return rm;
     }
@@ -297,4 +309,93 @@ public class RoomGeneration : MonoBehaviour
         corner.GetComponent<Tile>().RoomNumber = roomNumber;
 
     }
+
+    public void createEnemies(Room room, GameObject roomParent) {
+        int roomSize = room.RoomSize;
+        int numEnemies = room.NumEnemies;
+        List<Vector2> spawnPositions = new List<Vector2>();
+        for (int i = 0; i < numEnemies; i++)
+        {
+            int x = Random.Range(1, roomSize - 1);
+            int y = Random.Range(1, roomSize - 1);
+            Vector2 spawnPos = new Vector2(x, y);
+            while (spawnPositions.Contains(spawnPos))
+            {
+                if (spawnPos.y == roomSize - 1)
+                {
+                    if (spawnPos.x == roomSize - 1)
+                    {
+                        spawnPos = new Vector2(1, 1);
+                    }
+                    else
+                    {
+                        spawnPos.x += 1;
+                    }
+                }
+                else
+                {
+                    spawnPos.y += 1;
+                }
+            }
+            spawnPositions.Add(spawnPos);
+
+            spawnPos.y *= -1;
+            spawnPos *= roomWidth;
+            GameObject enemy = Instantiate(enemies[0]);
+            enemy.transform.parent = roomParent.transform;
+            enemy.transform.localPosition = spawnPos;
+
+            EnemyController ec = enemy.GetComponent<EnemyController>();
+            ec.m_Enemy.RoomNumber = room.RoomNum;
+            ec.m_Enemy.Position = enemy.transform.position;
+            
+            room.Enemies.Add(enemy.GetComponent<EnemyController>());
+        }
+    }
+
+    public void createItems(Room room, GameObject roomParent)
+    {
+        int roomSize = room.RoomSize;
+        int numItems = room.NumOrbs;
+        List<Vector2> spawnPositions = new List<Vector2>();
+        for (int i = 0; i < numItems; i++)
+        {
+            int x = Random.Range(1, roomSize + 1);
+            int y = Random.Range(1, roomSize + 1);
+            Vector2 spawnPos = new Vector2(x, y);
+            while (spawnPositions.Contains(spawnPos))
+            {
+                if (spawnPos.y == roomSize - 1)
+                {
+                    if (spawnPos.x == roomSize - 1)
+                    {
+                        spawnPos = new Vector2(1, 1);
+                    }
+                    else
+                    {
+                        spawnPos.x += 1;
+                    }
+                }
+                else
+                {
+                    spawnPos.y += 1;
+                }
+            }
+            spawnPositions.Add(spawnPos);
+
+            spawnPos.y *= -1;
+            spawnPos *= roomWidth;
+            int orbNum = Random.Range(0, 3);
+            GameObject orb = Instantiate(items[orbNum]);
+            orb.transform.parent = roomParent.transform;
+            orb.transform.localPosition = spawnPos;
+
+            Orb orbController = orb.GetComponent<OrbCollider>().m_Orb;
+            orbController.Position = orb.transform.position;
+            
+            room.Orbs.Add(orbController);
+        }
+    }
+
+    #endregion
 }

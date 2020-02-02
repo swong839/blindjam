@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Orb
 {
     [SerializeField]
@@ -14,10 +16,18 @@ public class Orb
 
     [SerializeField]
     private Element type;
-
     public Element Type
     {
         get { return type; }
         set { type = value; }
     }
+
+    [SerializeField]
+    private int damage;
+    public int Damage
+    {
+        get { return damage; }
+        set { damage = value; }
+    }
+
 }

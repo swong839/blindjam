@@ -10,6 +10,19 @@ TagManager:
   - item
   - enemy
   - mapGenerator
+  - tunnel
+  - tunnelEntrance
+  - orb
+  - gameManager
+  - uiManager
+  - BlackOut
+  - OrbPickUp
+  - OrbUse
+  - RoomEntrance
+  - PlayerAudio
+  - NextLevel
+  - BackgroundMusic
+  - EnemyAudio
   layers:
   - Default
   - TransparentFX
