@@ -28,6 +28,7 @@ public class PlayerInventory : MonoBehaviour
     private PlayerAnimation pAnim;
     private OrbUse oAud;
     private OrbPickUp opAud;
+    private PlayerParticles pPart;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class PlayerInventory : MonoBehaviour
         pAnim = GetComponent<PlayerAnimation>();
         oAud = GameObject.FindGameObjectWithTag("OrbUse").GetComponent<OrbUse>();
         opAud = GameObject.FindGameObjectWithTag("OrbPickUp").GetComponent<OrbPickUp>();
+        pPart = GetComponent<PlayerParticles>();
     }
 
     #region Update Functions
@@ -90,6 +92,7 @@ public class PlayerInventory : MonoBehaviour
             pUI.UpdateInventoryUI();
             pAnim.ChangeAnimation("use_orb");
             oAud.PlayCue(orbNum);
+            pPart.PlayParticle(orbNum);
             //if (orbInventory[orb] == 0)
             //{
             //    oc.DestroyOrb();

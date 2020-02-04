@@ -55,7 +55,6 @@ public class PlayerUI : MonoBehaviour
         //hearts = number of hearts to remove
         for (int i = hearts; i < totalHearts.Count; i++)
         {
-            Debug.Log("kill heart");
             Destroy(totalHearts[0]);
             totalHearts.RemoveAt(0);
         }
@@ -65,7 +64,6 @@ public class PlayerUI : MonoBehaviour
     #region Inventory UI
     public void UpdateInventoryUI()
     {
-        Debug.Log("update inventory");
         for (int i = 0; i < 3; i++)
         {
             TextMeshProUGUI orbCount = orbCounts[i];

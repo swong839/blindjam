@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2502666034872289569}
   - component: {fileID: 6084683103436223197}
   - component: {fileID: 2263964809741341618}
+  - component: {fileID: 5446027465420648008}
   m_Layer: 0
   m_Name: IceOrb
   m_TagString: orb
@@ -68,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -846607375
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 6358399820313423818, guid: 006a64804046ab04697dcbe176c4ef75,
     type: 3}
@@ -150,5 +151,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.26666668, y: 0.26666668}
+  m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!95 &5446027465420648008
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603475902109333066}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a9cbd923142c9a4ba07db1cc1db3bf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

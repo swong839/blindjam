@@ -18,7 +18,6 @@ public class PlayerAnimation : MonoBehaviour
     #region Animation Functions
     public void ChangeAnimation(string name)
     {
-        Debug.Log(name);
         anim.Play(name);
     }
     #endregion

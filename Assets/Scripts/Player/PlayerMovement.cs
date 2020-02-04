@@ -163,8 +163,10 @@ public class PlayerMovement : MonoBehaviour
                     if (ray.collider.CompareTag("wall"))
                     {
                         pAud.PlayerWallBump();
+                        PlayAnimation(direction);
                     } else if (ray.collider.CompareTag("enemy"))
                     {
+                        PlayAnimation(direction);
                         pAud.PlayerEnemyBump();
                     }
                     return;

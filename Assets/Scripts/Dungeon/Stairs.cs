@@ -76,12 +76,10 @@ public class Stairs : MonoBehaviour
         Color panelBlack = panelTrans;
         panelBlack.a = 1;
         panelTrans.a = 0;
-
-        Debug.Log(Time.timeScale);
+        
         for (int j = 0; j < 100; j++)
         {
             panel.color = Color.Lerp(panelBlack, panelTrans, j / 100f);
-            Debug.Log(j);
             yield return new WaitForSeconds(0.005f);
         }
         PlayerMovement pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -95,12 +93,10 @@ public class Stairs : MonoBehaviour
         Color panelBlack = panelTrans;
         panelBlack.a = 1;
         panelTrans.a = 0;
-
-        Debug.Log(Time.timeScale);
+        
         for (int j = 0; j < 100; j++)
         {
             panel.color = Color.Lerp(panelBlack, panelTrans, j / 100f);
-            Debug.Log(j);
             yield return new WaitForSeconds(0.005f);
         }
         PlayerMovement pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -123,6 +119,5 @@ public class Stairs : MonoBehaviour
 
         dg.roomSetUp();
         player.GetComponent<Rigidbody2D>().MovePosition(new Vector2(0.4f, -0.4f));
-        Debug.Log(player.transform.position);
     }
 }

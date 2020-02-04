@@ -58,6 +58,7 @@ public class EnemyMovement : MonoBehaviour
             Vector2 potentialPosition = new Vector2((float)Math.Round(c.x + transform.position.x, 1), (float)Math.Round(c.y + transform.position.y, 1));
             if (potentialPosition == gm.PlayerNextPos)
             {
+                Debug.Log("attack player check");
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 AttackPlayer(player, c);
             }
@@ -97,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
         moved = true;
         FacePlayer(c);
         //Attack animation based on direction
-        eAnim.ChangeAnimation(directionStr + "_attack");
+        AttackAnimation();
         PlayerHealth ph = player.GetComponent<PlayerHealth>();
 
         ph.decreaseHealth(enemy.Damage);
@@ -323,7 +324,34 @@ public class EnemyMovement : MonoBehaviour
     #region Sprite Functions
     private void FacePlayer(Vector2 dir)
     {
+        if (dir.x == 0 && dir.y == tileWidth)
+        {
+            directionStr = "up";
+        } else if (dir.x == 0 && dir.y == -1 * tileWidth)
+        {
+            directionStr = "down";
+        } else if (dir.x == tileWidth && dir.y == 0)
+        {
+            directionStr = "right";
+        } else if (dir.x == -1 * tileWidth && dir.y == 0)
+        {
+            directionStr = "left";
+        }
+    }
 
+    private void AttackAnimation()
+    {
+        Debug.Log("attack " + directionStr);
+        if (directionStr == "right")
+        {
+            sr.flipX = true;
+            eAnim.ChangeAnimation("left" + "_attack");
+        }
+        else
+        {
+            sr.flipX = false;
+            eAnim.ChangeAnimation(directionStr + "_attack");
+        }
     }
     #endregion
 }
